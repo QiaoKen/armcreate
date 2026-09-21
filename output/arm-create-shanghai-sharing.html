@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Arm Create 上海开发者大会｜部门分享</title>
+  <style>
+    :root{--bg:#071018;--panel:#0d1b27;--text:#eef7f8;--muted:#9fb5bc;--cyan:#38e8d2;--purple:#9e73ff;--orange:#ffb45b;--line:#214050;--note:#14232d}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+    .deck{scroll-snap-type:y mandatory;overflow-y:auto;height:100vh}.slide{min-height:100vh;scroll-snap-align:start;padding:7vh 7vw 6vh;display:grid;grid-template-rows:auto 1fr auto;gap:3vh;position:relative;background:radial-gradient(circle at 90% 0%,#153354 0,transparent 34%),linear-gradient(145deg,#071018,#0a1621)}
+    .slide:nth-child(3n){background:radial-gradient(circle at 8% 95%,#24305e 0,transparent 35%),linear-gradient(145deg,#071018,#0a1621)}
+    .kicker{color:var(--cyan);font-weight:750;letter-spacing:.14em;text-transform:uppercase;font-size:clamp(14px,1.2vw,22px)} h1{font-size:clamp(42px,6vw,92px);line-height:1.04;margin:.18em 0} h2{font-size:clamp(34px,4.3vw,68px);line-height:1.12;margin:.15em 0 .3em} h3{font-size:clamp(22px,2.1vw,34px);margin:.3em 0;color:var(--cyan)} p,li{font-size:clamp(18px,1.55vw,28px);line-height:1.58} ul{margin:.3em 0;padding-left:1.25em}.lead{font-size:clamp(24px,2.25vw,38px);line-height:1.45;color:#dbecef;max-width:1050px}.muted{color:var(--muted)}
+    .content{display:grid;gap:3vw;align-items:center}.two{grid-template-columns:1.02fr .98fr}.three{grid-template-columns:repeat(3,1fr);align-items:stretch}.card{background:rgba(13,27,39,.9);border:1px solid var(--line);border-radius:22px;padding:1.2em;box-shadow:0 18px 50px #0005}.card strong{color:var(--cyan)} .metric{font-size:clamp(34px,4.2vw,68px);font-weight:800;color:var(--cyan);line-height:1}.metric small{font-size:.35em;color:var(--muted)}
+    figure{margin:0;position:relative} figure img{display:block;width:100%;max-height:62vh;object-fit:contain;border-radius:18px;box-shadow:0 22px 60px #000a;background:#000} figcaption{font-size:14px;color:var(--muted);margin-top:10px}.quote{font-size:clamp(28px,3vw,50px);line-height:1.35;border-left:7px solid var(--cyan);padding-left:.7em}.tag{display:inline-block;border:1px solid #3e6172;border-radius:999px;padding:.3em .7em;margin:.25em .25em 0 0;color:#cfe6eb;font-size:clamp(14px,1vw,18px)}
+    .footer{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}.time{color:var(--orange);font-weight:700}.speaker{display:none;background:var(--note);border:1px solid #36505d;border-radius:18px;padding:1.1em 1.25em;margin-top:1em;color:#d7e8eb}.speaker p,.speaker li{font-size:18px;line-height:1.65}.speaker h4{font-size:20px;color:var(--orange);margin:.2em 0}.notes .speaker{display:block}.notes .slide{min-height:auto;scroll-snap-align:none;border-bottom:1px solid var(--line)}
+    .controls{position:fixed;z-index:10;right:18px;top:16px;display:flex;gap:8px}.controls button{border:1px solid #436170;background:#0b1923dd;color:#eaf5f6;border-radius:999px;padding:9px 13px;cursor:pointer}.progress{position:fixed;z-index:10;left:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--cyan),var(--purple));width:0}.timer{position:fixed;z-index:10;left:18px;top:18px;color:#bdd0d5;background:#071018cc;padding:8px 12px;border-radius:999px;font-variant-numeric:tabular-nums}
+    .route{display:grid;grid-template-columns:auto 1fr;gap:14px 20px;align-items:center}.route .n{width:42px;height:42px;border-radius:50%;background:var(--cyan);color:#06201d;display:grid;place-items:center;font-weight:900}.route p{margin:0}.accent{color:var(--cyan)} .warn{color:var(--orange)}
+    @media(max-width:850px){.slide{padding:7vh 6vw}.two,.three{grid-template-columns:1fr}.content{align-items:start}figure img{max-height:43vh}.controls{display:none}}
+    @media print{body{background:white;color:#111}.controls,.progress,.timer{display:none}.deck{height:auto;overflow:visible}.slide{min-height:0;page-break-after:always;background:white;color:#111;padding:1.4cm}.speaker{display:block;color:#222;background:#f4f6f7}.card{box-shadow:none;background:#f3f6f7;color:#111}h2,h3,.kicker,.accent{color:#087d73}.muted,figcaption,.footer{color:#555}}
+  </style>
+</head>
+<body>
+<div class="timer" id="timer">00:00</div>
+<div class="controls"><button id="noteBtn">讲稿 N</button><button id="fullBtn">全屏 F</button><button id="resetBtn">计时重置</button></div>
+<div class="progress" id="progress"></div>
+<main class="deck" id="deck">
+
+  <section class="slide">
+    <header><div class="kicker">Arm Create · Shanghai · 2026.09.09</div><h1>端侧 AI，开始进入<br><span class="accent">每一帧、每一条流水线</span></h1></header>
+    <div class="content two">
+      <div><p class="lead">从移动端神经渲染、开放世界画质，到 SME2 推理与端到端图像编码：这次大会让我看到的，不是一组孤立的 Demo，而是一种新的工程范式。</p><span class="tag">移动端 AI</span><span class="tag">神经图形</span><span class="tag">SME2</span><span class="tag">Windows on Arm</span></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0163.jpeg" alt="AI渲染在游戏应用中的探索与实践"><figcaption>现场照片：IMG_0163.jpeg</figcaption></figure>
+    </div>
+    <footer class="footer"><span>部门内部分享</span><span class="time">建议 1–2 分钟</span></footer>
+    <aside class="speaker"><h4>开场讲稿</h4><p>今天不做逐页复述，而是回答三个问题：端侧 AI 正在进入哪些真实业务环节？为什么现在能落地？对我们的工程实践有什么启发？我重点选择了现场照片里信息最完整的五条主线。照片中的性能数字都来自现场演讲，在不同设备、模型和测试条件下不能直接横向比较，今天更关注方法和趋势。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Executive summary</div><h2>先说结论：AI 不再只是“一个功能”</h2></header>
+    <div class="content three">
+      <div class="card"><h3>1. 进入渲染管线</h3><p>AI 开始承担全局光照、纹理压缩、超分、降噪和空间音频等每帧任务。</p></div>
+      <div class="card"><h3>2. 进入基础算子</h3><p>SME2 这类矩阵扩展把端侧推理变成 CPU 上可持续优化的工程问题。</p></div>
+      <div class="card"><h3>3. 进入系统产品</h3><p>Windows on Arm 与本地模型工具链把硬件能力包装成可交付的应用体验。</p></div>
+    </div>
+    <footer class="footer"><span>贯穿全场的共同方向</span><span class="time">建议 2–3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>我认为最重要的变化是：过去我们常把 AI 看成一个可开关的业务模块，例如识别、推荐或对话；现场方案更像是把 AI 嵌进原本确定性的系统流水线。它必须满足帧预算、内存、包体、稳定性和兼容性约束。也就是说，竞争焦点从“有没有模型”转向“模型能否成为可靠的系统组件”。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">How to use this deck</div><h2>一份稿，三种时长</h2></header>
+    <div class="content two">
+      <div class="route"><div class="n">30</div><p><strong>精简版：</strong>讲 4–6、8–9、11–14、16–17；弱化音频和 Windows。</p><div class="n">45</div><p><strong>标准版：</strong>按顺序讲完正文，每页约 2–4 分钟。</p><div class="n">60</div><p><strong>扩展版：</strong>展开讲者备注里的工程解释，并在 9、12、14 页加入讨论。</p></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0162.jpeg" alt="大会日程"><figcaption>大会日程：边缘 AI、云 AI、物理 AI 三个专场</figcaption></figure>
+    </div>
+    <footer class="footer"><span>键盘 ↑↓/空格翻页；N 显示讲稿；F 全屏</span><span class="time">建议 1 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>我的照片主要来自“边缘 AI”专场，因此这次分享并不试图覆盖大会全部议题，而是聚焦端侧图形、推理与系统生态。标准版大约 45 到 50 分钟；如果现场讨论多，可以跳过标记为可选的内容。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">01 · Neural rendering</div><h2>移动端神经渲染：把复杂计算改写成“特征 + 小网络”</h2></header>
+    <div class="content two">
+      <div><p class="lead">用可学习的潜特征承载高频细节，再用小型 MLP 做轻量解码。</p><ul><li>目标不是堆一个大模型，而是把模型压进每帧预算。</li><li>典型输出：光照、颜色、密度、材质块或可见性。</li><li>关键瓶颈：访存、线程调度、GPU 解码与引擎集成。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0168.jpeg" alt="特征网格加MLP的运行时解码流程"><figcaption>特征网格 + Tiny MLP 的运行时解码流程</figcaption></figure>
+    </div>
+    <footer class="footer"><span>MagicDawn：AI 渲染在游戏应用中的探索与实践</span><span class="time">建议 3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这条路线的工程直觉很重要：复杂场景的信息并不一定全部由传统纹理或显式数据保存，可以把一部分信息压成可学习特征，然后由一个很小的网络按需恢复。现场页面给出的 Tiny MLP 规模是 2–8 层、16–128 通道。它足够小，才有机会进入实时渲染；但一旦进入每帧，它的访存、调度和图形 API 支持就与网络精度同样重要。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">NDGI</div><h2>神经动态全局光照：推理不是离线步骤，而是渲染阶段</h2></header>
+    <div class="content two">
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0173.jpeg" alt="Neural Dynamic GI运行时管线"><figcaption>Arm GPU 执行 MLP 解码，并回到 Neural Lightmap 渲染</figcaption></figure>
+      <div class="card"><h3>值得关注的不是“用了 AI”</h3><ul><li>推理后端、Atlas 纹理、异步提交与同步要一起设计。</li><li>按 Tile 分组，避免一次处理整张场景。</li><li>最终仍要回到 Shader 和引擎已有资源体系。</li></ul><p class="muted">工程结论：模型只是管线中的一个阶段，不能孤立优化。</p></div>
+    </div>
+    <footer class="footer"><span>NDGI：Neural Dynamic Global Illumination</span><span class="time">建议 3–4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这张图是全场很有代表性的一页。神经推理完成后，需要创建或绑定 Atlas、上传 Tile 数据、等待 GPU、把结果复制到物理纹理，再由 Shader 采样。任何一步出现同步等待或资源搬运，模型本身省下来的计算都可能被吃掉。所以端侧 AI 的真正优化单位不是一个算子，而是从数据产生到最终消费的完整链路。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">NTC</div><h2>神经纹理压缩：同时解决包体与运行时访问</h2></header>
+    <div class="content two">
+      <div><div class="metric">50–70% <small>3A 游戏纹理贴图包体占比（现场页）</small></div><p>传统 BC/ASTC 受通道数量和线性解码能力限制；NTC 利用跨通道、跨 Mip 与空间冗余，把整组 PBR 材质共同编码。</p><div class="card"><strong>现场方法：</strong>可学习潜特征 + MLP；TVLoss 平滑潜空间；Predictive ZIP 进一步压缩 4-bit 残差。</div></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0186.jpeg" alt="游戏包体和传统纹理压缩痛点"><figcaption>示例：Raw 64MB、BC7 16MB、Pak(Zlib) 约 12MB</figcaption></figure>
+    </div>
+    <footer class="footer"><span>NTC：Neural Texture Compression</span><span class="time">建议 4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>纹理是很适合神经压缩的对象：不同 PBR 通道之间、不同 Mip 层之间以及空间邻域里都有冗余。传统方案通常逐张、逐块处理，无法充分利用这些相关性。现场还特别强调了训练后的潜特征并不天然适合 ZIP，因此先用 TVLoss 约束平滑，再做邻域预测，最后压缩量化残差。这个思路可以抽象成一句话：模型压缩负责“学结构”，传统编码负责“收尾”。</p><p>若做 60 分钟版本，可补充现场给出的额外包体收益：BPP 5 为 20.08%，BPP 2.5 为 17.24%，BPP 1.667 为 14.33%。这些是特定测试条件下的结果，不宜脱离上下文推广。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Optional · Spatial audio</div><h2>同一套思路也延伸到音频：把传播与材质参数压进运行时</h2></header>
+    <div class="content two">
+      <div><p class="lead">Dawn Acoustics 展示了基于场景特征的空间音频推理：输入声源/听者位置、几何与材质，输出动态声学效果。</p><ul><li>价值：减少手工烘焙，适配动态场景。</li><li>挑战：听感评价、时延与跨设备一致性。</li><li>共同点：仍然是“可学习表示 + 轻量解码 + 实时管线”。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0201.jpeg" alt="Dawn Acoustics"><figcaption>Dawn Acoustics 现场架构页</figcaption></figure>
+    </div>
+    <footer class="footer"><span>30 分钟版可跳过</span><span class="time">建议 2 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这部分照片较少，我不展开算法细节。它更大的意义是说明：神经表示并非只用于像素，也可用于声场。图形和音频都在尝试把昂贵的物理计算转换为可学习表示，并用端侧硬件实时解码。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">02 · Open-world rendering</div><h2>把开放世界带到移动端，首先是“一帧如何流动”</h2></header>
+    <div class="content two">
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0226.jpeg" alt="一帧的线程流水线"><figcaption>主线程、游戏线程、计算线程、设备线程与 IO 的一帧流水线</figcaption></figure>
+      <div><p class="quote">移动端优化不是单点降耗，而是让整条帧流水线更短、更并行、更少搬运。</p><ul><li>任务图和帧图组织并发工作。</li><li>资源准备、命令编码和 IO 都可能成为关键路径。</li><li>画质算法必须从一开始就考虑引擎调度。</li></ul></div>
+    </div>
+    <footer class="footer"><span>网易：《燕云十六声》开放世界移动化</span><span class="time">建议 3–4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>开放世界移植不是把 PC 参数整体调低。一个画面从输入到 Present，跨越主线程、游戏线程、计算线程、设备线程和 IO。移动设备更容易受到内存带宽、热设计和调度抖动影响，所以需要把串行阶段拆开、把可以并行的工作前移，并减少 framebuffer 与资源切换。这里和上一部分形成呼应：优化对象始终是端到端链路。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">NSS · Neural Super Sampling</div><h2>NSS 不是只看一张图，而是理解一帧如何到来</h2></header>
+    <div class="content two">
+      <div class="card"><h3>每帧输入</h3><p>低分辨率 Color、Depth、Camera Params</p><h3>时序信号</h3><p>Motion Vector、Jitter、SDK 管理的 History</p><h3>输出</h3><p>目标分辨率画面</p></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0253.jpeg" alt="NSS输入和历史状态"><figcaption>NSS 依赖稳定的时序重建与引擎持续提供的每帧信息</figcaption></figure>
+    </div>
+    <footer class="footer"><span>Arm × Unity / 团结引擎</span><span class="time">建议 4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>超分的关键不只是模型看到的当前低分辨率图，还包括深度、相机参数、运动向量、亚像素抖动和历史状态。也就是说，SDK 接入质量会直接决定画质。如果运动向量不准确或历史状态处理不当，就会出现鬼影、闪烁和细节不稳定。对业务团队而言，这说明采购或接入一个算法 SDK 远远不够，还要建立数据契约和质量检查。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Quality / performance trade-off</div><h2>用更少像素换回接近的观感</h2></header>
+    <div class="content two">
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0245.jpeg" alt="NSS画质对比"><figcaption>现场对比：SMAA 渲染比例 0.7 vs NSS 渲染比例 0.5</figcaption></figure>
+      <div><div class="metric">0.5 <small>渲染比例</small></div><p class="lead">现场展示中，NSS 以一半渲染分辨率，对比 0.7 比例的 SMAA，观感接近但实际渲染面积更小。</p><p class="muted">注意：这是一组现场场景对比，不等于所有内容、设备和镜头下都能得到同样结论。</p></div>
+    </div>
+    <footer class="footer"><span>可在此停下来让听众观察细节</span><span class="time">建议 2–3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这页适合用肉眼比较。NSS 的价值不是把 0.5 神奇变成原生，而是把节省下来的像素预算换给更复杂的材质、光照或更稳定的帧率。评价时应把静态截图、动态稳定性、UI 细节、功耗和时延一起看，而不能只看单张图的 PSNR。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">03 · SME2</div><h2>为什么 SME2 重要：让矩阵计算成为 CPU 的“一等公民”</h2></header>
+    <div class="content two">
+      <div><p class="lead">SME2 面向可伸缩矩阵计算，适合 GEMM、卷积和量化推理等密集工作负载。</p><ul><li>不是独立 NPU，也不会自动加速所有算子。</li><li>需要识别热点、检查数据类型/形态/布局，再选择 SME2 内核。</li><li>正确性优先，同设备、同输入、同线程做 A/B。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0310.jpeg" alt="让密集计算命中SME2"><figcaption>腾讯媒体实验室：识别热点 → 适配 → 调度 SME2 内核 → 同条件验证</figcaption></figure>
+    </div>
+    <footer class="footer"><span>硬件能力只有被正确调度，才能形成端到端收益</span><span class="time">建议 3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这部分最容易产生误解：有了 SME2，并不代表现有应用自动提速。要先找到真正占时的卷积或矩阵算子，再确认数据布局与量化格式是否适合，替换内核并做严格 A/B。现场反复强调 Accuracy First，因为端侧量化和低精度优化很容易在边界输入上产生偏差。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">MNN case study</div><h2>440MB 翻译模型：从“能运行”到“值得在手机运行”</h2></header>
+    <div class="content two">
+      <div class="card"><h3>现场方案线索</h3><ul><li>约 440MB 翻译模型，Hy-MT2-1.8B。</li><li>26bit / 1.25bit 等量化探索，配合 Sherry 轻量化。</li><li>重点优化 Prefill、Decode 与量化算子。</li><li>Q2_0C 通过放大分组，降低缩放修正频率，让宽向量单元持续满载。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0297.jpeg" alt="440MB翻译模型手机运行"><figcaption>“440MB 翻译模型，手机运行无压力”现场标题页</figcaption></figure>
+    </div>
+    <footer class="footer"><span>从指令集突破到多核协同：SME2 在 MNN 引擎中的实践</span><span class="time">建议 4–5 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这项案例把模型、量化格式、内核和产品体验串了起来。小模型只是第一步，真正决定体验的还有首字延迟，也就是 Prefill；以及后续逐 token 生成速度，也就是 Decode。照片中的 Q2_0C 例子体现了底层优化思想：重新组织量化块，让缩放因子的处理频率下降，使 SME2 的宽向量单元更连续地工作。最终产品用翻译 App 做对比，而不是只给算子微基准。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Measured results</div><h2>现场实测：SME2 对 Prefill 的收益更突出</h2></header>
+    <div class="content two">
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0286.jpeg" alt="M4 SME2实测"><figcaption>Mac mini M4；Qwen3-0.6B / 4B；4bit；pp1024；单线程</figcaption></figure>
+      <div><div class="metric">3.52× <small>Prefill 最高</small></div><p>0.6B：2.80×；4B：3.52×</p><div class="metric">1.71× <small>Decode 最高</small></div><p>0.6B：1.71×；4B：1.49×</p><p class="muted">数字来自照片中的特定测试环境，仅用于说明不同阶段的加速差异。</p></div>
+    </div>
+    <footer class="footer"><span>先分阶段测量，再谈总体体验</span><span class="time">建议 3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>为什么 Prefill 加速更明显？Prefill 对整个提示词做并行计算，矩阵计算密度高，更能发挥 SME2；Decode 是逐 token 生成，常受访存、KV Cache 和串行依赖影响。这个差异提醒我们，不能用一个“平均加速比”概括模型体验，应该分别测首字延迟、每 token 延迟、内存、功耗和持续性能。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">04 · End-to-end neural image coding</div><h2>端到端编码的优势，不只是换掉某个模块</h2></header>
+    <div class="content two">
+      <div><p class="lead">从人工设计的预测、变换、量化、熵编码，转向表示—概率模型—重建的协同训练。</p><ul><li>压缩目标仍是率失真最优：质量与码率的权衡。</li><li>潜力来自端到端联合优化，而非局部模块更“聪明”。</li><li>落地时仍需要图执行、数据通路和密集计算调度。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0302.jpeg" alt="传统编码与端到端编码"><figcaption>腾讯媒体实验室：传统编码 vs 端到端神经网络图像编码</figcaption></figure>
+    </div>
+    <footer class="footer"><span>基于 Arm SME2 的端到端图像编解码加速实践</span><span class="time">建议 3–4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>神经图像编码不是把传统编码器里的某个模块换成神经网络，而是围绕质量和码率目标，对表示、概率模型和重建一起训练。这样压缩潜力更高，但工程链路更复杂：图里可能有大量小算子、数据布局转换和中间写回。如果只优化最慢的一个算子，总体性能未必改善。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Pipeline thinking</div><h2>优化目标从“单算子更快”转向“完整 Pipeline 更短”</h2></header>
+    <div class="content two">
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0329.jpeg" alt="图执行与数据通路优化"><figcaption>冗余转换清理、算子融合、布局与执行边界优化</figcaption></figure>
+      <div class="route"><div class="n">1</div><p>删掉可证明冗余的转换与复制。</p><div class="n">2</div><p>融合相邻常规逐元素操作。</p><div class="n">3</div><p>减少布局变化、中间写回和后端切换。</p><div class="n">4</div><p>再让真正的密集计算命中 SME2。</p></div>
+    </div>
+    <footer class="footer"><span>这是全场最可迁移的工程方法</span><span class="time">建议 3–4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>这页可以直接迁移到我们自己的性能工作：首先用全链路 Profile 找到真正的等待和搬运；其次做图级清理与融合；然后稳定数据布局与执行边界；最后才替换热点内核。现场底部一句话非常准确：优化目标从“单算子更快”转向“完整 Pipeline 更短”。如果顺序反过来，很容易得到漂亮的微基准，却看不到端到端收益。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Optional · Windows on Arm</div><h2>硬件能力最终要通过工具链与应用生态交付</h2></header>
+    <div class="content two">
+      <div><p class="lead">Windows on Arm 的现场内容把本地 AI 能力连接到应用开发：Windows AI APIs、Foundry Local、Windows ML、MXC、AI Dev Gallery 等。</p><ul><li>开发者需要模型获取、转换、部署、观测的一体化路径。</li><li>兼容性与 App Assure 降低迁移阻力。</li><li>真正的产品优势来自“硬件 + 系统 + 工具 + 应用”。</li></ul></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0318.jpeg" alt="Windows on Arm资源"><figcaption>现场资源页：Windows Foundry 与 MXC</figcaption></figure>
+    </div>
+    <footer class="footer"><span>30 分钟版可跳过</span><span class="time">建议 2–3 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>前面的案例偏底层，这一部分提醒我们：没有工具链和兼容性，硬件峰值很难变成开发者生产力。Windows on Arm 正在补齐本地模型运行、API、开发画廊、命令行与应用兼容支持。对企业应用来说，迁移成本、可观测性和更新机制通常比一次 benchmark 更决定采用速度。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">What connects the talks</div><h2>五场演讲背后的四条共同规律</h2></header>
+    <div class="content two">
+      <div class="route"><div class="n">A</div><p><strong>AI 小型化：</strong>可学习特征 + 小解码器，比“大模型 everywhere”更实际。</p><div class="n">B</div><p><strong>异构协同：</strong>CPU、GPU、NPU、内存与图形 API 共同决定体验。</p><div class="n">C</div><p><strong>端到端测量：</strong>首帧、每帧、功耗、包体、画质必须一起看。</p><div class="n">D</div><p><strong>生态优先：</strong>引擎、SDK、工具和兼容性决定能力能否规模化。</p></div>
+      <figure><img src="../pic/上海市, 2026年9月9日/IMG_0334.jpeg" alt="Arm神经技术展台"><figcaption>现场展台：Arm 神经技术从产业合作走向真实游戏体验</figcaption></figure>
+    </div>
+    <footer class="footer"><span>我的归纳，不是现场原话</span><span class="time">建议 4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>把这些演讲放在一起，我看到的是一种“系统 AI”范式。第一，模型被做得足够小，成为传统管线的一部分；第二，性能来自异构硬件与数据流协同；第三，所有结果都要回到端到端体验；第四，只有进入引擎、SDK 和系统工具，能力才能被大量开发者使用。这四条比任何单一算法名词更值得带回团队。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Actions for our team</div><h2>对我们最可执行的三点建议</h2></header>
+    <div class="content three">
+      <div class="card"><h3>先画数据流</h3><p>在优化前画清输入、转换、复制、同步、执行和输出，建立端到端基线。</p></div>
+      <div class="card"><h3>再找高密度热点</h3><p>优先选择重复频率高、矩阵密集、输入形态稳定的环节做 AI/SME2 试点。</p></div>
+      <div class="card"><h3>最后做真实 A/B</h3><p>同设备、同输入、同线程；同时看质量、延迟、内存、功耗与持续性能。</p></div>
+    </div>
+    <footer class="footer"><span>建议会后输出一个小型验证项目，而不是大规模重构</span><span class="time">建议 3–4 分钟</span></footer>
+    <aside class="speaker"><h4>讲稿</h4><p>如果要把大会信息转成行动，我建议从一条真实流水线开始：先做端到端 Profiling 和数据流图；再选一个适合矩阵化、调用频繁而且输入稳定的热点；最后做可复现的 A/B。先证明总体指标改善，再决定是否扩展。不要因为某个硬件指令很新，就先围绕它寻找问题。</p></aside>
+  </section>
+
+  <section class="slide">
+    <header><div class="kicker">Close</div><h2>一句话收尾</h2></header>
+    <div class="content"><p class="quote">端侧 AI 的下一阶段，不是把更多模型塞进设备，而是让模型以更低成本、更高确定性，成为系统流水线的一部分。</p><p class="lead muted">讨论：在我们的产品里，哪一条高频流水线最适合成为第一个验证点？</p></div>
+    <footer class="footer"><span>Q&A</span><span class="time">预留 5–10 分钟</span></footer>
+    <aside class="speaker"><h4>结束语</h4><p>今天的重点不是预测哪项技术一定胜出，而是识别工程方向：更小的神经模块、更紧密的数据流、更明确的硬件映射，以及更严格的端到端验证。谢谢，欢迎讨论。</p></aside>
+  </section>
+
+</main>
+<script>
+  const deck=document.getElementById('deck'), slides=[...document.querySelectorAll('.slide')], progress=document.getElementById('progress');
+  const start={value:Date.now()};
+  function tick(){const s=Math.floor((Date.now()-start.value)/1000);document.getElementById('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')} setInterval(tick,1000);
+  function current(){let best=0,d=Infinity;slides.forEach((s,i)=>{const x=Math.abs(s.getBoundingClientRect().top);if(x<d){d=x;best=i}});return best}
+  function go(delta){slides[Math.max(0,Math.min(slides.length-1,current()+delta))].scrollIntoView({behavior:'smooth'})}
+  deck.addEventListener('scroll',()=>{progress.style.width=((current()+1)/slides.length*100)+'%'});
+  document.addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(1)}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(-1)}if(e.key.toLowerCase()==='n')document.body.classList.toggle('notes');if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});
+  document.getElementById('noteBtn').onclick=()=>document.body.classList.toggle('notes');
+  document.getElementById('fullBtn').onclick=()=>document.documentElement.requestFullscreen?.();
+  document.getElementById('resetBtn').onclick=()=>{start.value=Date.now();tick()};
+  progress.style.width=(1/slides.length*100)+'%';
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Arm Create 上海开发者大会｜逐字讲稿版</title>
+  <style>
+    :root{--bg:#071119;--paper:#0d1b25;--paper2:#102530;--text:#eef7f7;--muted:#9db3bb;--cyan:#43e7d2;--orange:#ffb55f;--purple:#a988ff;--line:#294756}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.85}
+    .layout{display:grid;grid-template-columns:280px minmax(0,900px);gap:44px;max-width:1280px;margin:auto;padding:42px 28px 100px}.nav{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;background:#091821;border:1px solid var(--line);border-radius:20px;padding:20px}.nav h2{font-size:18px;margin:0 0 12px;color:var(--cyan)}.nav a{display:block;color:#bfd0d5;text-decoration:none;padding:7px 9px;border-radius:8px;font-size:14px;line-height:1.4}.nav a:hover{background:#17303c;color:white}.nav .total{color:var(--orange);font-weight:700;margin:12px 8px 0}
+    main{min-width:0}.hero,.topic{background:linear-gradient(145deg,var(--paper),#091721);border:1px solid var(--line);border-radius:26px;padding:clamp(24px,5vw,54px);margin-bottom:34px;box-shadow:0 22px 60px #0005}.hero{background:radial-gradient(circle at 100% 0,#21436b 0,transparent 38%),linear-gradient(145deg,#0a1722,#071119)}
+    .eyebrow{color:var(--cyan);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:14px}h1{font-size:clamp(40px,6vw,70px);line-height:1.08;margin:.25em 0}h2{font-size:clamp(29px,4vw,44px);line-height:1.22;margin:.2em 0 .55em}h3{font-size:22px;color:var(--cyan);margin:1.2em 0 .3em}p,li{font-size:19px}p{margin:.65em 0}ul{padding-left:1.25em}.meta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.pill{border:1px solid #456472;border-radius:999px;padding:4px 11px;color:#d3e4e8;font-size:14px}.time{color:var(--orange);font-weight:800}.script{background:var(--paper2);border-left:5px solid var(--cyan);border-radius:12px;padding:18px 24px;margin:16px 0}.script p{font-size:20px;line-height:1.95}.transition{background:#171c2d;border-left:5px solid var(--purple);border-radius:12px;padding:14px 20px;color:#e5ddff}.transition strong{color:var(--purple)}.visual{margin:22px 0}.visual img{display:block;width:100%;max-height:560px;object-fit:contain;background:#000;border-radius:16px}.visual figcaption{font-size:14px;color:var(--muted);margin-top:8px}.cue{color:var(--orange);font-weight:750}details{border:1px solid #40515e;border-radius:14px;padding:10px 16px;margin-top:18px;background:#0a1821}summary{cursor:pointer;color:var(--orange);font-size:18px;font-weight:750}details p{color:#d5e3e6}.warning{color:var(--muted);font-size:15px}.toolbar{position:fixed;right:20px;bottom:20px;display:flex;gap:8px;z-index:10}.toolbar button{background:#102530;color:white;border:1px solid #476674;border-radius:999px;padding:10px 14px;cursor:pointer}.large .script p{font-size:24px}.large .topic{max-width:1000px}.large .layout{grid-template-columns:1fr;max-width:1060px}.large .nav{display:none}
+    @media(max-width:900px){.layout{grid-template-columns:1fr;padding:20px 14px}.nav{position:relative;top:0;max-height:none}.topic,.hero{padding:25px 20px}.toolbar{display:none}}
+    @media print{body{background:#fff;color:#111}.layout{display:block;max-width:none;padding:0}.nav,.toolbar{display:none}.hero,.topic{box-shadow:none;background:#fff;border:0;border-radius:0;padding:1cm 1.3cm;margin:0;page-break-after:auto}.topic{page-break-before:always}.script,.transition,details{background:#f5f7f8;color:#111}.script p,details p{color:#111}.eyebrow,h3{color:#087a70}.visual img{max-height:15cm}.warning{color:#555}}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <nav class="nav">
+    <h2>逐字讲稿目录</h2>
+    <a href="#intro">0. 开场</a><a href="#summary">1. 核心结论</a><a href="#rendering">2. 神经渲染</a><a href="#ndgi">3. NDGI</a><a href="#ntc">4. 神经纹理压缩</a><a href="#audio">5. 空间音频</a><a href="#openworld">6. 开放世界管线</a><a href="#nss">7. NSS 超分</a><a href="#quality">8. 画质与性能</a><a href="#sme2">9. SME2</a><a href="#mnn">10. 端侧翻译模型</a><a href="#benchmark">11. 性能数字</a><a href="#codec">12. 神经图像编码</a><a href="#pipeline">13. Pipeline 优化</a><a href="#windows">14. Windows on Arm</a><a href="#lessons">15. 共同规律</a><a href="#actions">16. 团队建议</a><a href="#close">17. 收尾</a>
+    <div class="total">标准版约 45–50 分钟</div>
+  </nav>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Arm Create Shanghai · 演讲准备文档</div>
+      <h1>端侧 AI，开始进入<br>每一帧、每一条流水线</h1>
+      <p>这是一份可直接朗读的详细讲稿。橙色文字为动作提示，不必念出；紫色框是页面之间的过渡语；折叠区域是 60 分钟版本使用的扩展内容。</p>
+      <div class="meta"><span class="pill">30 分钟：跳过可选主题和扩展段</span><span class="pill">45–50 分钟：朗读全部正文</span><span class="pill">60 分钟：展开扩展段并加入讨论</span></div>
+      <p class="warning">说明：性能数字均来自现场照片中的特定测试条件，不应被表述为通用性能承诺。</p>
+    </section>
+
+    <section class="topic" id="intro">
+      <div class="eyebrow">Topic 0 · 约 2 分钟</div><h2>开场：我为什么选择这几个主题</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0162.jpeg" alt="大会日程"><figcaption>大会日程：边缘 AI、云 AI、物理 AI 三个专场</figcaption></figure>
+      <div class="script"><p>大家好。前不久我参加了 Arm Create 上海开发者大会。大会内容很多，现场同时设置了边缘 AI、云 AI 和物理 AI 三个方向。我当天主要关注的是边缘 AI 专场，所以今天的分享不会试图覆盖整场大会，而是聚焦我认为和端侧产品、性能优化以及工程落地最相关的内容。</p><p>我把现场看到的内容归纳成五条主线：第一条是移动端神经渲染，包括全局光照、纹理压缩和空间音频；第二条是开放世界游戏如何通过渲染管线和神经超分进入移动端；第三条是 SME2 如何加速端侧大模型推理；第四条是端到端神经图像编码；最后一条是 Windows on Arm 的本地 AI 工具和应用生态。</p><p>这些主题表面上差别很大，但我听完以后最大的感受是，它们正在汇合到同一种工程范式：AI 不再只是一个独立功能，而是开始进入每一帧、每一个算子和每一条系统流水线。今天我想重点解释这种变化，以及它对我们的启发。</p></div>
+      <div class="transition"><strong>过渡语：</strong>在进入具体案例之前，我先把整场分享最重要的结论提前说出来。</div>
+    </section>
+
+    <section class="topic" id="summary">
+      <div class="eyebrow">Topic 1 · 约 3 分钟</div><h2>核心结论：AI 不再只是“一个功能”</h2>
+      <div class="script"><p>过去我们谈端侧 AI，通常会想到识别、分类、推荐或者对话。它们往往是产品里的一个独立入口：用户触发功能，模型运行，然后返回结果。但是这次大会展示的很多方案不是这种形态。模型被放进了渲染器、编解码器、引擎调度和操作系统工具链，它需要像传统系统组件一样持续、稳定、低成本地工作。</p><p>这带来三个明显变化。第一，评价模型不能只看准确率，还要看帧预算、首字延迟、内存带宽、包体、功耗和持续性能。第二，优化对象不再是一个模型或者一个算子，而是数据从产生到消费的完整链路。第三，硬件能力只有进入引擎、SDK、编译器和应用生态以后，才能真正变成用户体验。</p><p>所以今天所有案例都可以用一句话串起来：端侧 AI 的竞争重点，正在从“有没有模型”变成“模型能不能成为一个可靠的系统组件”。</p></div>
+      <div class="transition"><strong>过渡语：</strong>我们先从最直观的游戏画面开始，看 AI 是怎样进入一帧渲染的。</div>
+    </section>
+
+    <section class="topic" id="rendering">
+      <div class="eyebrow">Topic 2 · 约 4 分钟</div><h2>神经渲染：把复杂数据改写成“特征 + 小网络”</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0168.jpeg" alt="特征网格和MLP"><figcaption>特征网格采样、特征拼接与 Tiny MLP 解码</figcaption></figure>
+      <div class="script"><p><span class="cue">【指向图片，从左向右讲】</span> 这张图展示了神经渲染里非常典型的一种结构。系统先根据位置、方向或者材质实例等查询条件，从一个可学习的特征网格中采样。采样结果与其他条件拼接以后，交给一个很小的多层感知机，也就是 Tiny MLP。最后输出颜色、光照、密度、材质块或者可见性等渲染数据。</p><p>这里的关键不是使用一个很大的网络，而是把高频、复杂的信息分成两部分：一部分保存在可学习的潜特征里，另一部分由小网络按需解码。现场页面里给出的 Tiny MLP 通常只有两到八层、十六到一百二十八个通道。网络足够小，才有机会在每一帧里运行。</p><p>但是进入实时渲染以后，问题就不只是模型推理速度。特征要从哪里读取，线程如何调度，GPU 是否支持对应的矩阵计算，结果怎样回到纹理和 Shader，这些都会影响最终帧时间。所以神经渲染不是“在渲染器旁边加一个 AI 模块”，而是重新设计一部分渲染数据的表达方式。</p></div>
+      <details><summary>60 分钟扩展：为什么这种结构适合移动端</summary><p>移动端的主要约束往往不是单纯算力不足，而是内存带宽、功耗和持续散热。显式保存大量高精度数据会产生存储与读取压力；可学习特征通过更紧凑的表示减少数据量，小网络则用计算恢复细节。当计算成本低于节省下来的带宽成本时，这种交换就可能划算。但它必须在真实设备上测量，不能只根据理论 FLOPS 判断。</p></details>
+      <div class="transition"><strong>过渡语：</strong>接下来用动态全局光照这个案例，看看一个小网络真正进入渲染管线后，还要解决哪些系统问题。</div>
+    </section>
+
+    <section class="topic" id="ndgi">
+      <div class="eyebrow">Topic 3 · 约 4 分钟</div><h2>NDGI：模型只是管线中的一个阶段</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0173.jpeg" alt="NDGI运行时管线"><figcaption>Arm GPU 加速 MLP 解码，结果回到 Neural Lightmap 渲染</figcaption></figure>
+      <div class="script"><p>这张图是我认为现场最有代表性的一页。它描述的是 Neural Dynamic GI，也就是神经动态全局光照的运行时管线。左侧虽然突出显示了 Arm GPU 加速 MLP 解码，但如果顺着箭头看，会发现模型推理只是中间一个步骤。</p><p>在推理之前，系统要按 Tile 准备特征和参数，上传数据，创建或者绑定 Atlas 纹理；推理完成后，还要等待 GPU 任务结束，把结果复制到物理纹理，再由 Shader 采样并完成最终画面。任何一次不必要的同步、资源创建或者数据搬运，都可能把神经网络节省下来的时间重新消耗掉。</p><p>因此这里最值得记住的不是某个模型结构，而是优化单位发生了变化。我们不能只问 MLP 跑了多少毫秒，而要问从数据准备开始，到最终像素被显示出来，整条链路用了多少时间。端侧 AI 如果不能和引擎已有的资源系统、异步队列与线程模型结合，就很难稳定地进入每一帧。</p></div>
+      <div class="transition"><strong>过渡语：</strong>神经网络除了生成光照，也可以用来减少游戏最现实的成本之一——纹理包体。</div>
+    </section>
+
+    <section class="topic" id="ntc">
+      <div class="eyebrow">Topic 4 · 约 5 分钟</div><h2>神经纹理压缩：模型学习结构，传统编码负责收尾</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0186.jpeg" alt="纹理包体痛点"><figcaption>现场示例：Raw 64MB、BC7 16MB、Pak(Zlib) 约 12MB</figcaption></figure>
+      <div class="script"><p>纹理包体是 3A 游戏移动化时很现实的问题。现场页面提到，纹理贴图可能占整个游戏包体的百分之五十到七十。传统 BC、ASTC 等块压缩格式已经很成熟，但它们通常按固定通道和固定块工作，对现代 PBR 材质中的多通道关联利用有限。</p><p>神经纹理压缩的思路，是把一组材质纹理共同编码。比如颜色、法线、粗糙度、金属度和环境遮蔽，它们并不是完全独立的；不同 Mip 层之间也存在信息冗余；相邻空间位置同样高度相关。模型把这些相关性压进共享的潜特征，再由小型 MLP 在运行时恢复需要的通道。</p><p>现场还介绍了一个很有意思的改进：训练后的潜特征虽然经过量化，但相邻位置可能跳变很大，直接使用 ZIP 不容易继续压缩。解决办法是用 TVLoss 约束潜空间更加平滑，再进行邻域预测，只保存更小的残差，最后用 ZIP 压缩。也就是说，神经网络负责学习数据结构，传统无损编码负责把剩余冗余进一步压掉。</p><p>这个案例的启发是，新旧技术不一定互相替代。最好的系统往往是让学习方法处理传统规则不擅长的部分，再让成熟编码格式完成可逆、稳定和便于部署的最后一步。</p></div>
+      <details><summary>60 分钟扩展：现场数字如何表述</summary><p>可以补充说：现场页面展示的额外包体收益在不同 BPP 设置下约为 20.08%、17.24% 和 14.33%。这里必须强调，这是特定素材、模型和编码条件下的结果，分享时应把它作为方法有效性的证据，而不是普遍承诺。</p></details>
+      <div class="transition"><strong>过渡语：</strong>同样的“可学习表示加轻量解码”思路，也不仅限于像素。</div>
+    </section>
+
+    <section class="topic" id="audio">
+      <div class="eyebrow">Topic 5 · 可选 · 约 2 分钟</div><h2>空间音频：神经表示也可以描述声场</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0201.jpeg" alt="Dawn Acoustics"><figcaption>Dawn Acoustics 现场架构页</figcaption></figure>
+      <div class="script"><p>现场还展示了 Dawn Acoustics 空间音频方案。它可以根据声源和听者的位置、场景几何以及材质信息，推理出动态的声学效果。和传统预烘焙方案相比，它希望减少人工制作成本，并更好地适应开放世界里不断变化的位置和环境。</p><p>这部分我不展开具体算法，只强调它与神经渲染的共同点：都是把昂贵的物理计算转换成可学习表示，再由端侧硬件实时解码。图形和音频正在从两条不同路径走向相似的工程结构。当然，音频还需要处理主观听感、低时延和跨设备一致性，这些都是模型指标之外的问题。</p></div>
+      <div class="transition"><strong>过渡语：</strong>讲完可学习表示，我们把视角切换到开放世界游戏，看看一帧画面本身是怎样被组织起来的。</div>
+    </section>
+
+    <section class="topic" id="openworld">
+      <div class="eyebrow">Topic 6 · 约 4 分钟</div><h2>开放世界移动化：先理解一帧如何流动</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0226.jpeg" alt="一帧的流水线"><figcaption>主线程、游戏线程、计算线程、设备线程与 IO</figcaption></figure>
+      <div class="script"><p><span class="cue">【沿着时间轴从左到右讲】</span> 网易关于《燕云十六声》移动化的分享，首先没有从某个画质开关讲起，而是展示一帧画面如何在多个线程之间流动。主线程处理输入和系统 API；游戏线程执行逻辑、建立 Frame Graph 并触发渲染；计算线程处理任务图、剔除和资源准备；设备线程负责提交与呈现；底部还有文件系统、Shader 编译和其他异步任务。</p><p>这张图解释了为什么移动端优化不能简单理解为降低画质。真正影响帧率的可能是线程之间的等待、任务粒度不合理、资源准备太晚、命令编码集中在关键路径，或者 IO 和 Shader 编译产生抖动。单个模块快一点，不代表下一帧能更早到来。</p><p>所以开放世界移动化的核心，是让整条帧流水线更短、更并行、更少搬运。任务图和帧图用来组织依赖，异步任务尽量提前，资源布局和 Render Pass 则要减少切换。这和前面 NDGI 的结论完全一致：性能优化的对象是完整链路，不是孤立函数。</p></div>
+      <div class="transition"><strong>过渡语：</strong>当基础流水线稳定以后，神经超分就可以帮助我们用更少的像素预算换回接近的画质。</div>
+    </section>
+
+    <section class="topic" id="nss">
+      <div class="eyebrow">Topic 7 · 约 4 分钟</div><h2>NSS：它不只看一张图，还要理解这一帧如何到来</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0253.jpeg" alt="NSS时序输入"><figcaption>当前帧信息、时序信号、历史状态与目标分辨率输出</figcaption></figure>
+      <div class="script"><p>NSS 是 Neural Super Sampling，也就是神经超分采样。很多人第一次接触超分，会把它理解成把一张低分辨率图片放大。但是游戏里的实时超分不是单张图片处理，而是时序重建。</p><p>从这张图可以看到，每一帧都要提供低分辨率颜色、深度和相机参数；同时还需要运动向量和亚像素抖动；SDK 自己还会维护历史状态。模型结合当前帧和历史信息，输出目标分辨率画面。换句话说，NSS 的效果不仅取决于模型，也取决于引擎持续提供的信息是否准确。</p><p>如果运动向量不正确，物体边缘可能出现拖影；如果历史状态在镜头切换后没有及时清理，可能出现残留；如果透明物体、粒子和 UI 的处理顺序不合理，也会出现闪烁或细节丢失。所以接入一个神经超分 SDK，不是完成一次 API 调用，而是建立一套稳定的数据契约和质量检查流程。</p></div>
+      <div class="transition"><strong>过渡语：</strong>下面看一组现场画质对比，理解这种方法到底换回了什么。</div>
+    </section>
+
+    <section class="topic" id="quality">
+      <div class="eyebrow">Topic 8 · 约 3 分钟</div><h2>画质与性能：把节省的像素预算用到更重要的地方</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0245.jpeg" alt="NSS画质对比"><figcaption>左：SMAA 渲染比例 0.7；右：NSS 渲染比例 0.5</figcaption></figure>
+      <div class="script"><p><span class="cue">【停顿三秒，让听众观察】</span> 左侧是渲染比例零点七的 SMAA，右侧是渲染比例零点五的 NSS。现场给出的结论是，NSS 只渲染一半分辨率，实际渲染面积更小，但在这组旷野场景中，观感与零点七比例的 SMAA 接近。</p><p>这里的价值不是证明零点五永远等于原生画质，而是说明我们可以重新分配 GPU 预算。减少基础像素数量以后，节省下来的预算可以用于更复杂的光照、材质、植被，也可以用于提高帧率或者降低功耗。</p><p>评估时也不能只看一张静态截图。真正的产品验证要同时看动态稳定性、快速移动时的鬼影、UI 和细线条、输入时延、功耗以及长时间运行后的频率变化。画质是一种端到端体验，而不是单一指标。</p></div>
+      <div class="transition"><strong>过渡语：</strong>前面主要讲 GPU 和渲染。接下来转向 CPU，看看 SME2 为什么成为大会里的另一个高频关键词。</div>
+    </section>
+
+    <section class="topic" id="sme2">
+      <div class="eyebrow">Topic 9 · 约 4 分钟</div><h2>SME2：让矩阵计算成为 CPU 的一等公民</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0310.jpeg" alt="SME2优化路径"><figcaption>识别热点、检查适配条件、调度内核、验证输出、同条件 A/B</figcaption></figure>
+      <div class="script"><p>SME2 可以理解为 Arm 面向可伸缩矩阵计算的一组架构扩展。它适合矩阵乘、卷积以及量化推理中的密集计算。对端侧 AI 来说，它的意义是 CPU 不再只承担控制和轻量逻辑，也可以更高效地处理一部分矩阵工作负载。</p><p>但是现场特别强调，SME2 不是一块独立 NPU，也不会自动加速所有算子。正确的路径是先识别计算热点，确认它确实是卷积或者矩阵类任务；然后检查数据类型、张量形态和内存布局是否适合；再调度 SME2 优化内核；最后验证输出一致性，并在同一设备、同一输入、同一线程条件下做 A/B。</p><p>这个顺序很重要。低精度量化和硬件特化可能在边界输入上产生误差，所以必须 Accuracy First。并且即使单个内核很快，如果前后发生大量布局转换或者后端切换，端到端性能也不一定提高。</p></div>
+      <div class="transition"><strong>过渡语：</strong>下面通过一个四百四十兆的手机翻译模型，看看这些原则怎样落实到真实产品。</div>
+    </section>
+
+    <section class="topic" id="mnn">
+      <div class="eyebrow">Topic 10 · 约 5 分钟</div><h2>MNN 案例：从“手机能跑”到“手机值得跑”</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0297.jpeg" alt="440MB翻译模型"><figcaption>现场标题：“440MB 翻译模型，手机运行无压力”</figcaption></figure>
+      <div class="script"><p>这项分享展示了一个大约四百四十兆的端侧翻译模型。现场材料里可以看到 Hy-MT2-1.8B、低比特量化、Sherry 轻量化，以及针对 Prefill 和 Decode 的优化。这里最有价值的，不是模型文件做到了多少兆，而是他们把模型、量化格式、底层算子和手机端产品体验连在了一起。</p><p>对于生成式模型，用户体验至少包含两个阶段。第一个阶段是 Prefill，也就是模型处理完整提示词并生成第一个 token 之前的计算，它直接影响首字等待时间。第二个阶段是 Decode，也就是后续逐 token 生成，它决定输出是否流畅。这两个阶段的计算特征不同，所以优化效果也不同。</p><p>现场还展示了 Q2_0C 量化算子的思路。普通 GGUF 格式把三十二个元素作为一块并携带缩放因子；Q2_0C 把分组放大到五百一十二个元素共享一个缩放因子，从而降低缩放修正频率，让 SME2 的宽向量计算单元更持续地保持满载。这里本质上是在为硬件重排数据，而不是只替换一条指令。</p><p>最终他们没有停在算子 benchmark，而是用翻译 App 展示支持 SME2 和不支持 SME2 的真实差别。这一点很重要：端侧优化只有回到真实交互，才能证明它值得投入。</p></div>
+      <div class="transition"><strong>过渡语：</strong>接下来具体看性能数字，并解释为什么 Prefill 和 Decode 的收益不一样。</div>
+    </section>
+
+    <section class="topic" id="benchmark">
+      <div class="eyebrow">Topic 11 · 约 4 分钟</div><h2>性能数字：先分阶段测量，再谈总体体验</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0286.jpeg" alt="M4 SME2实测"><figcaption>Mac mini M4；Qwen3-0.6B / 4B；4bit；pp1024；单线程</figcaption></figure>
+      <div class="script"><p><span class="cue">【先说明测试条件】</span> 这组数据是在 Mac mini M4 上，对 Qwen3 零点六 B 和四 B 模型进行四比特量化测试。上下文长度是一千零二十四，使用单线程。现场把 SME2 与 Arm V8.6 路径进行了对比。</p><p>在 Prefill 阶段，零点六 B 模型从每秒二百六十点一 token 提升到七百二十七点八，约为二点八倍；四 B 模型从三十八点三提升到一百三十四点九，达到三点五二倍。在 Decode 阶段，零点六 B 模型约为一点七一倍，四 B 模型约为一点四九倍。</p><p>为什么 Prefill 收益更大？因为 Prefill 会对整段提示词做大量并行矩阵计算，计算密度更高，更容易发挥 SME2。Decode 是逐 token 生成，串行依赖更强，还会受到 KV Cache、访存和调度开销影响。因此同一套硬件扩展，在模型不同阶段的收益并不相同。</p><p>所以在我们自己的测试里，不应该只给一个平均加速比。至少要分别报告首字延迟、每 token 延迟、峰值内存、功耗和持续运行后的性能。只有这样，数据才能对应真实体验。</p></div>
+      <div class="transition"><strong>过渡语：</strong>SME2 不只服务大模型推理，它同样可以进入图像编解码这样的传统基础设施。</div>
+    </section>
+
+    <section class="topic" id="codec">
+      <div class="eyebrow">Topic 12 · 约 4 分钟</div><h2>端到端神经图像编码：不是替换模块，而是联合优化目标</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0302.jpeg" alt="传统编码和端到端编码"><figcaption>传统模块化图像编码 vs 端到端神经网络图像编码</figcaption></figure>
+      <div class="script"><p>传统图像编码由人工设计的一系列模块组成，包括预测、变换、量化和熵编码。每个模块都非常成熟，标准和硬件生态也很完整。端到端神经图像编码则把表示学习、概率模型和重建放到同一个训练目标里，直接围绕质量与码率的权衡进行优化。</p><p>现场用 D 加 Lambda 乘 R 来表示率失真目标。D 是失真，也就是画质损失；R 是码率；Lambda 控制二者之间的权衡。端到端训练的潜力在于，系统可以跨越原来人为划分的模块边界，共同寻找更合适的表示。</p><p>但是工程上它也更复杂。计算图中可能存在大量小算子、类型转换、数据复制和中间张量写回。如果只把某个卷积替换成 SME2 内核，而其他部分仍然频繁搬运数据，总体速度可能没有明显变化。所以这个案例最终又回到了同一个主题：端到端模型需要端到端系统优化。</p></div>
+      <div class="transition"><strong>过渡语：</strong>下一页就是这项工作的核心方法，也是我认为最值得带回团队的一页。</div>
+    </section>
+
+    <section class="topic" id="pipeline">
+      <div class="eyebrow">Topic 13 · 约 5 分钟</div><h2>Pipeline 优化：单算子更快，不等于应用更快</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0329.jpeg" alt="图执行与数据通路优化"><figcaption>冗余转换清理、算子融合、布局与执行边界优化</figcaption></figure>
+      <div class="script"><p>这张图给出了非常清晰的优化顺序。第一步，清理可以证明冗余的转换和复制。第二步，把相邻的常规逐元素操作进行算子融合。第三步，减少布局变化、中间写回以及不同后端之间的切换。完成这些工作以后，再让真正的卷积和矩阵热点进入 SME2 路径。</p><p>为什么要按这个顺序？假设计算 A 和计算 B 本身都很快，但中间必须做一次类型转换、复制数据、调整布局，然后再写回内存，那么完整链路仍然很慢。如果我们只把计算 A 优化两倍，用户可能几乎感受不到。只有把 A 和 B 融合，让数据连续流动，才能真正缩短 Pipeline。</p><p>这也给我们的性能工作提供了一个通用模板。先用全链路 Profile 找到时间花在哪里；再画出数据流，识别转换、复制和同步；然后进行图级清理与融合；最后才针对稳定的热点选择硬件特化内核。优化完成后，还要回到真实输入做端到端 A/B。</p><p>我认为这比记住某个 SME2 指令更重要。硬件会更新，但“完整 Pipeline 更短”会一直是有效的目标。</p></div>
+      <details><summary>60 分钟扩展：可以现场提问</summary><p>可以问听众：“我们现在负责的系统里，有没有一个算子 benchmark 很快，但实际链路仍然很慢的案例？”让大家从序列化、网络调用、格式转换、数据库读写或 GPU/CPU 同步等自己的场景中举例，把大会内容转换为团队共同语言。</p></details>
+      <div class="transition"><strong>过渡语：</strong>前面讲的是底层优化。最后看一下，当这些能力进入操作系统和开发工具以后，开发者会获得什么。</div>
+    </section>
+
+    <section class="topic" id="windows">
+      <div class="eyebrow">Topic 14 · 可选 · 约 3 分钟</div><h2>Windows on Arm：硬件能力最终要通过生态交付</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0318.jpeg" alt="Windows AI资源"><figcaption>Windows AI APIs、Foundry Local、Windows ML、MXC 等现场资源</figcaption></figure>
+      <div class="script"><p>Windows on Arm 的分享把视角从算子和模型拉回到应用生态。现场列出了 Windows AI APIs、Foundry Local、Windows ML、MXC、AI Dev Gallery、智能终端和开发技能等工具，同时也介绍了 App Assure 兼容支持。</p><p>这说明硬件峰值只是起点。开发者还需要找到模型、转换模型、选择执行后端、集成 API、观察性能、处理更新，并确保原有应用可以迁移。任何一个环节体验不好，都会降低新硬件能力的采用速度。</p><p>所以真正的产品优势来自“硬件、系统、工具和应用”共同完成闭环。对于企业团队来说，可维护性、兼容性和部署流程，往往比一次漂亮的 benchmark 更能决定技术是否进入生产。</p></div>
+      <div class="transition"><strong>过渡语：</strong>到这里，五条主线已经讲完。下面我用四条规律把它们重新串起来。</div>
+    </section>
+
+    <section class="topic" id="lessons">
+      <div class="eyebrow">Topic 15 · 约 5 分钟</div><h2>五场演讲背后的四条共同规律</h2>
+      <figure class="visual"><img src="../pic/上海市, 2026年9月9日/IMG_0334.jpeg" alt="Arm神经技术展台"><figcaption>展台展示：Arm 神经技术从产业合作走向真实游戏体验</figcaption></figure>
+      <div class="script"><p>把这些案例放在一起，我归纳出四条共同规律。</p><p>第一是 AI 小型化。现场真正进入实时系统的，往往不是一个庞大的通用模型，而是可学习特征加小型解码器，或者经过深度量化和特化的端侧模型。模型需要足够小，才能成为流水线的一部分。</p><p>第二是异构协同。CPU、GPU、NPU、内存系统、图形 API 和编译器共同决定结果。我们不能只根据 TOPS 或 FLOPS 判断体验，也不能默认某个硬件后端适合所有算子。</p><p>第三是端到端测量。图形要同时看画质、帧时间、功耗和包体；大模型要分别看 Prefill 和 Decode；编解码要同时看质量、码率和整个图执行时间。指标必须对应用户实际等待和设备实际消耗。</p><p>第四是生态优先。只有当能力进入引擎、SDK、工具链和应用兼容体系，普通开发者才可能稳定使用。算法首秀代表可行性，工具链和生态才代表规模化。</p><p>这四条可以合并成一个词：系统 AI。它不是把模型附加到系统上，而是让模型与数据流、硬件和软件生命周期一起设计。</p></div>
+      <div class="transition"><strong>过渡语：</strong>最后，我尝试把这些观察转换成对我们团队可执行的建议。</div>
+    </section>
+
+    <section class="topic" id="actions">
+      <div class="eyebrow">Topic 16 · 约 4 分钟</div><h2>对团队的建议：从一条真实流水线开始</h2>
+      <div class="script"><p>第一，先画数据流。选择一个真实业务场景，把输入、格式转换、复制、同步、执行和输出全部画出来，并建立端到端性能基线。没有这张图，我们很容易优化到错误的位置。</p><p>第二，再寻找高密度热点。优先考虑调用频率高、矩阵计算密集、输入形态稳定，并且结果容易验证的环节。它可能适合 SME2、GPU Compute 或者一个小型神经模块，但选择应来自 Profile，而不是来自对新技术的偏好。</p><p>第三，做真实 A/B。保持同一设备、同一输入、同一线程和相同温度条件，除了平均延迟，还要记录长尾、内存、功耗和持续运行后的变化；涉及图像和音频时，还要准备可重复的质量评估。</p><p>我的建议不是立刻进行大规模重构，而是做一个小型验证项目。先证明完整 Pipeline 的总体指标确实改善，再决定是否扩大投入。这样既能吸收大会的新技术，也能控制工程风险。</p></div>
+      <details><summary>可用于讨论的三个问题</summary><p>一，我们的产品里哪条高频流水线最适合第一个试点？二，当前最大的成本是计算、带宽、复制、同步，还是工具链？三，如果性能提高百分之三十，我们愿意接受多大的质量、功耗或维护成本？</p></details>
+      <div class="transition"><strong>过渡语：</strong>我用最后一句话结束今天的分享。</div>
+    </section>
+
+    <section class="topic" id="close">
+      <div class="eyebrow">Topic 17 · 约 2 分钟 + Q&A</div><h2>收尾：让模型成为可靠的系统组件</h2>
+      <div class="script"><p>今天分享的重点，不是预测某一种模型、指令集或者平台一定会胜出，而是识别一个已经非常清晰的工程方向：模型会更小，数据流会更紧密，硬件映射会更明确，端到端验证会更严格。</p><p>如果只记住一句话，我希望是这一句：端侧 AI 的下一阶段，不是把更多模型塞进设备，而是让模型以更低成本、更高确定性，成为系统流水线的一部分。</p><p>我的分享就到这里。接下来想和大家讨论的是，在我们的产品里，哪一条高频流水线最适合成为第一个验证点？谢谢大家。</p></div>
+      <p class="warning">建议预留 5–10 分钟问答。若前面已接近时间上限，可直接朗读最后两段。</p>
+    </section>
+  </main>
+</div>
+<div class="toolbar"><button onclick="document.body.classList.toggle('large')">排练大字模式</button><button onclick="window.print()">打印 / 保存 PDF</button><button onclick="scrollTo({top:0,behavior:'smooth'})">回到顶部</button></div>
+</body>
+</html>
